@@ -10,7 +10,6 @@
 ///                                                      ///
 ////////////////////////////////////////////////////////////
 '''
-
 from collections import namedtuple
 
 Order = namedtuple('Order', 'id, items')
@@ -21,7 +20,8 @@ def validorder(order: Order):
     
     for item in order.items:
         if item.type == 'payment':
-            net += item.amount
+            if abs(item.amount) < 1_000_000:
+                net += item.amount
         elif item.type == 'product':
             net -= item.amount * item.quantity
         else:
